@@ -60,16 +60,11 @@ body {
     border-radius: 12px;
 }
 
-.logo-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text-main);
-    letter-spacing: -0.5px;
-}
+/* Logo Styles */
 
 .logo-img {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
 }
 
@@ -763,8 +758,8 @@ body {
 }
 
 .receipt-logo {
-    width: 150px;
-    height: 150px;
+    width: 220px;
+    height: 220px;
     object-fit: contain;
     margin-bottom: 10px;
 }
@@ -820,8 +815,8 @@ body {
 }
 
 .auth-logo {
-    width: 200px;
-    height: 200px;
+    width: 280px;
+    height: 280px;
     object-fit: contain;
     margin-bottom: 20px;
 }
@@ -837,12 +832,12 @@ body {
 
 .anniversary-logo {
     width: 100%;
-    max-width: 120px;
+    max-width: 160px;
     height: auto;
     object-fit: contain;
     margin: 20px auto;
     display: block;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .sidebar-footer {
