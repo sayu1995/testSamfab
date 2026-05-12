@@ -61,10 +61,17 @@ body {
 }
 
 .logo-name {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     color: var(--text-main);
     letter-spacing: -0.5px;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 8px;
 }
 
 .nav-list {
@@ -579,6 +586,13 @@ body {
 .receipt-table { width: 100%; margin-block: 10px; }
 .receipt-total { display: flex; justify-content: space-between; font-weight: bold; margin-block: 10px; font-size: 16px; }
 
+.receipt-logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
 /* Authentication UI */
 .auth-overlay {
     position: fixed;
@@ -606,6 +620,14 @@ body {
 .auth-header { text-align: center; margin-bottom: 24px; }
 .auth-header h2 { font-size: 22px; color: var(--primary); margin-bottom: 8px; }
 .auth-header p { font-size: 14px; color: var(--text-muted); }
+
+.auth-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 16px;
+    border-radius: 12px;
+}
 
 .auth-form { display: none; }
 .auth-form.active { display: block; animation: fadeIn 0.4s ease forwards; }
