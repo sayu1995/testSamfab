@@ -26,7 +26,7 @@ async function test() {
         console.log('Del Status:', delRes.status);
         console.log('Del Data:', delData);
     } catch (e) {
-        console.error(e);
+         console.error(e);
     }
 }
 test();
