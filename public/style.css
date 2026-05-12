@@ -835,12 +835,12 @@ body {
 
 .anniversary-logo {
     width: 100%;
-    max-width: 160px;
+    max-width: 240px;
     height: auto;
     object-fit: contain;
     margin: 20px auto;
     display: block;
-    opacity: 0.9;
+    opacity: 1;
 }
 
 .sidebar-footer {
