@@ -68,8 +68,8 @@ body {
 }
 
 .logo-img {
-    width: 80px;
-    height: 80px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
 }
 
@@ -763,8 +763,8 @@ body {
 }
 
 .receipt-logo {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
     margin-bottom: 10px;
 }
@@ -837,8 +837,9 @@ body {
 
 .anniversary-logo {
     width: 100%;
-    max-width: 120px;
+    max-width: 559px;
     height: auto;
+    aspect-ratio: 559 / 333;
     object-fit: contain;
     margin: 20px auto;
     display: block;
