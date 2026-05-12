@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
+
 
 // Global variable to cache the mongoose connection
 let cachedDb = null;
@@ -11,18 +13,33 @@ const connectDB = async () => {
 
     try {
         const uri = process.env.MONGO_URI || 'mongodb+srv://test:test%40123@cluster0.3t4qpai.mongodb.net/?appName=Cluster0';
+        
+        // Log connection attempt (hiding password)
+        const sanitizedUri = uri.replace(/:([^@]+)@/, ':****@');
+        console.log(`Connecting to MongoDB: ${sanitizedUri}`);
+
         const db = await mongoose.connect(uri, {
-            serverSelectionTimeoutMS: 5000 // Tweak timeout down so Serverless fails faster instead of hanging
+            serverSelectionTimeoutMS: 10000, // 10s timeout
+            connectTimeoutMS: 10000
         });
         
         cachedDb = db;
-        console.log('Connected to MongoDB database');
+        console.log('Successfully connected to MongoDB');
         return db;
     } catch (err) {
-        console.error('Error connecting to MongoDB:', err.message);
-        throw err; // don't process.exit(1) in serverless!
+        console.error('CRITICAL: MongoDB Connection Error!');
+        console.error('Error Code:', err.code);
+        console.error('Message:', err.message);
+        
+        if (err.message.includes('ECONNREFUSED') || err.message.includes('querySrv')) {
+            console.error('\nTIP: This error usually means your network is blocking MongoDB SRV records.');
+            console.error('Try switching to a different network or use a non-SRV connection string in your .env file.\n');
+        }
+        
+        throw err;
     }
 };
+
 
 // -- SCHEMAS --
 
