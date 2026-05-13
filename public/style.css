@@ -836,14 +836,13 @@ body {
 }
 
 .anniversary-logo {
-    width: 100%;
-    max-width: 559px;
+    width: 250px;
     height: auto;
     aspect-ratio: 559 / 333;
     object-fit: contain;
-    margin: 20px auto;
+    margin: 10px auto;
     display: block;
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .sidebar-footer {
