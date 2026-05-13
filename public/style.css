@@ -803,6 +803,11 @@ body {
     margin: 15px 0;
     text-transform: uppercase;
     letter-spacing: 1px;
+    background-color: #f1f5f9;
+    padding: 12px 24px;
+    display: inline-block;
+    border-radius: 6px;
+    border: 1px solid var(--border);
 }
 
 .auth-header h2 {
