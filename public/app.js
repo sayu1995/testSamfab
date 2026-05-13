@@ -445,7 +445,14 @@ async function loadInventory() {
         if (catFilter !== 'all') {
             productsToRender = productsToRender.filter(p => (p.category || 'Trailer') === catFilter);
         }
-        
+
+        // Sort by Item ID
+        productsToRender.sort((a, b) => {
+            const idA = (a.item_id || '').toLowerCase();
+            const idB = (b.item_id || '').toLowerCase();
+            return idA.localeCompare(idB);
+        });
+
         productsToRender.forEach(p => {
             const imgHtml = p.image ? `<img src="${p.image}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;">` : `<div style="width:40px;height:40px;border-radius:8px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#64748b;">No Img</div>`;
             const tr = document.createElement('tr');
