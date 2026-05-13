@@ -461,6 +461,10 @@ async function loadInventory() {
                 <td>${p.category || 'Trailer'}</td>
                 <td class="${p.quantity <= 10 ? 'text-danger' : ''}">${p.quantity}</td>
                 <td>${formatCurrency(p.price)}</td>
+                <td>
+                    <button class="btn btn-outline btn-icon-only edit-btn" data-id="${p.id}"><i class='bx bx-edit'></i></button>
+                    <button class="btn btn-danger btn-icon-only del-btn" data-id="${p.id}"><i class='bx bx-trash'></i></button>
+                </td>
             `;
             tbody.appendChild(tr);
         });
