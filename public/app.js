@@ -36,7 +36,9 @@ loginForm.addEventListener('submit', async (e) => {
         if(!res.ok) throw new Error(data.error || 'Login failed');
         
         loginSuccess(data.token, data.business_name, data.role);
-    } catch(err) { alert(err.message); }
+    } catch(err) { 
+        alert('SAMFAB SYSTEM\nUSERNAME OR PASSWORD WRONG'); 
+    }
 });
 
 registerForm.addEventListener('submit', async (e) => {

@@ -52,7 +52,7 @@ app.post('/api/auth/login', async (req, res) => {
     try {
         const user = await User.findOne({ email, password });
         if (!user) {
-            return res.status(401).json({ error: 'Invalid credentials' });
+            return res.status(401).json({ error: 'SAMFAB SYSTEM USERNAME OR PASSWORD WRONG' });
         }
         res.json({ token: user._id.toString(), business_name: user.business_name, role: user.role });
     } catch (err) {
