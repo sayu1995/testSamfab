@@ -35,6 +35,7 @@ loginForm.addEventListener('submit', async (e) => {
         const data = await res.json();
         if(!res.ok) throw new Error(data.error || 'Login failed');
         
+        alert('Login Successful!');
         loginSuccess(data.token, data.business_name, data.role);
     } catch(err) { 
         alert('SAMFAB SYSTEM\nUSERNAME OR PASSWORD WRONG'); 
