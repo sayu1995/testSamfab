@@ -559,7 +559,7 @@ function renderPOSProducts(productArray) {
         div.className = 'pos-product-card';
         const imgStyle = p.image ? `background-image:url('${p.image}');background-size:cover;background-position:center;` : `background:#e2e8f0;`;
         div.innerHTML = `
-            <div style="width:100%;height:100px;border-radius:8px;margin-bottom:12px;${imgStyle}"></div>
+            <div style="width:100%;height:60px;border-radius:8px;margin-bottom:8px;${imgStyle}"></div>
             <h4>${p.name}</h4>
             <div class="price">${formatCurrency(p.price)}</div>
             <div style="font-size:12px;color:var(--text-muted);margin-top:4px;">Stock: ${p.quantity}</div>
