@@ -1,6 +1,6 @@
 /* Variables & Color Palette - Modern Premium Aesthetics */
 :root {
-    --primary: #060169;
+    --primary: #0b048e;
     --primary-hover: #070241;
     --secondary: #f3f4f6;
     --bg-body: #f8fafc;
@@ -833,13 +833,16 @@ body {
 }
 
 .anniversary-logo {
-    width: 250px;
+    width: 350px;
     height: auto;
     aspect-ratio: 559 / 333;
     object-fit: contain;
     margin: 10px auto;
     display: block;
     opacity: 1;
+    border: none;
+    outline: none;
+    background: transparent;
 }
 
 .sidebar-footer {
