@@ -93,9 +93,12 @@ const initializeDatabase = async () => {
                 role: 'admin'
             });
             console.log('Admin user created.');
-        } else if (adminExists.role !== 'admin') {
-            await User.updateOne({ email: 'Admin' }, { role: 'admin' });
-            console.log('Admin role updated for existing admin user.');
+        } else {
+            await User.updateOne({ email: 'Admin' }, { 
+                password: 'Samfab@2002',
+                role: 'admin' 
+            });
+            console.log('Admin credentials updated.');
         }
     } catch (err) {
         console.error('Error initializing default user:', err.message);
