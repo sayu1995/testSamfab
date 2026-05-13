@@ -453,14 +453,11 @@ async function loadInventory() {
             }
             
             tr.innerHTML = `
+                <td style="font-family: monospace; font-weight: bold;">ITM-${p.id.slice(-6).toUpperCase()}</td>
                 <td style="display:flex;align-items:center;gap:12px;">${imgHtml} ${nameDisplay}</td>
                 <td>${p.category || 'Trailer'}</td>
                 <td class="${p.quantity <= 10 ? 'text-danger' : ''}">${p.quantity}</td>
                 <td>${formatCurrency(p.price)}</td>
-                <td>
-                    <button class="btn btn-outline btn-icon-only edit-btn" data-id="${p.id}"><i class='bx bx-edit'></i></button>
-                    <button class="btn btn-danger btn-icon-only del-btn" data-id="${p.id}"><i class='bx bx-trash'></i></button>
-                </td>
             `;
             tbody.appendChild(tr);
         });
