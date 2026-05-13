@@ -35,7 +35,7 @@ body {
 
 /* Sidebar */
 .sidebar {
-    width: 260px;
+    width: 320px;
     background-color: var(--bg-card);
     border-right: 1px solid var(--border);
     display: flex;
@@ -68,8 +68,8 @@ body {
 }
 
 .logo-img {
-    width: 200px;
-    height: 200px;
+    width: 280px;
+    height: 280px;
     object-fit: contain;
 }
 
@@ -763,8 +763,8 @@ body {
 }
 
 .receipt-logo {
-    width: 200px;
-    height: 200px;
+    width: 350px;
+    height: 350px;
     object-fit: contain;
     margin-bottom: 10px;
 }
@@ -820,8 +820,8 @@ body {
 }
 
 .auth-logo {
-    width: 200px;
-    height: 200px;
+    width: 450px;
+    height: 450px;
     object-fit: contain;
     margin-bottom: 20px;
 }
