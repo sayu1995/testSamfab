@@ -170,6 +170,24 @@ function setupNavigation() {
             if(target === 'admin-view') loadAdminUsers();
         });
     });
+
+    // Category Filtering in Inventory
+    const inventoryCatFilter = document.getElementById('inventory-category-filter');
+    if (inventoryCatFilter) {
+        inventoryCatFilter.addEventListener('change', () => {
+            loadInventory();
+        });
+    }
+
+    // Category Filtering in POS
+    document.querySelectorAll('.pos-category-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.pos-category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const category = btn.dataset.category;
+            filterPOSByCategory(category);
+        });
+    });
     
     // ==== MARKETPLACE ====
     const btnMarketplace = document.getElementById('btn-create-marketplace');
@@ -256,11 +274,13 @@ function setupModals() {
         const name = document.getElementById('product-name').value;
         const qty = document.getElementById('product-qty').value;
         const price = document.getElementById('product-price').value;
+        const category = document.getElementById('product-category').value;
         
         const payload = { 
             name, 
             quantity: parseInt(qty), 
             price: parseFloat(price),
+            category,
             image: currentProductImageBase64
         };
         const method = id ? 'PUT' : 'POST';
@@ -416,6 +436,12 @@ async function loadInventory() {
         } else {
             filterBadge.style.display = 'none';
         }
+
+        // Handle category filtering
+        const catFilter = document.getElementById('inventory-category-filter').value;
+        if (catFilter !== 'all') {
+            productsToRender = productsToRender.filter(p => (p.category || 'Trailer') === catFilter);
+        }
         
         productsToRender.forEach(p => {
             const imgHtml = p.image ? `<img src="${p.image}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;">` : `<div style="width:40px;height:40px;border-radius:8px;background:#e2e8f0;display:flex;align-items:center;justify-content:center;font-size:10px;color:#64748b;">No Img</div>`;
@@ -428,6 +454,7 @@ async function loadInventory() {
             
             tr.innerHTML = `
                 <td style="display:flex;align-items:center;gap:12px;">${imgHtml} ${nameDisplay}</td>
+                <td>${p.category || 'Trailer'}</td>
                 <td class="${p.quantity <= 10 ? 'text-danger' : ''}">${p.quantity}</td>
                 <td>${formatCurrency(p.price)}</td>
                 <td>
@@ -469,6 +496,7 @@ function editProduct(id) {
         document.getElementById('product-name').value = p.name;
         document.getElementById('product-qty').value = p.quantity;
         document.getElementById('product-price').value = p.price;
+        document.getElementById('product-category').value = p.category || 'Trailer';
         
         currentProductImageBase64 = p.image || null;
         if (p.image) {
@@ -506,6 +534,11 @@ async function loadPOS() {
     try {
         const res = await fetchAuth(`${API_BASE}/products`);
         products = await res.json();
+        
+        // Reset category filter UI
+        document.querySelectorAll('.pos-category-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector('.pos-category-btn[data-category="all"]').classList.add('active');
+        
         renderPOSProducts(products);
     } catch (err) {
         console.error(err);
@@ -531,9 +564,26 @@ function renderPOSProducts(productArray) {
     });
 }
 
+function filterPOSByCategory(category) {
+    let filtered = products;
+    if (category !== 'all') {
+        filtered = products.filter(p => (p.category || 'Trailer') === category);
+    }
+    const term = document.getElementById('pos-search-input').value.toLowerCase();
+    if (term) {
+        filtered = filtered.filter(p => p.name.toLowerCase().includes(term));
+    }
+    renderPOSProducts(filtered);
+}
+
 document.getElementById('pos-search-input').addEventListener('input', (e) => {
     const term = e.target.value.toLowerCase();
-    const filtered = products.filter(p => p.name.toLowerCase().includes(term));
+    const activeCat = document.querySelector('.pos-category-btn.active').dataset.category;
+    let filtered = products;
+    if (activeCat !== 'all') {
+        filtered = products.filter(p => (p.category || 'Trailer') === activeCat);
+    }
+    filtered = filtered.filter(p => p.name.toLowerCase().includes(term));
     renderPOSProducts(filtered);
 });
 
@@ -556,7 +606,8 @@ function addToBill(product) {
             name: product.name,
             price: product.price,
             quantity: 1,
-            maxQty: product.quantity
+            maxQty: product.quantity,
+            category: product.category || 'Trailer'
         });
     }
     updateBillUI();
@@ -578,8 +629,10 @@ function updateBillQuantity(id, change) {
 }
 
 function updateBillUI() {
-    const itemsContainer = document.getElementById('pos-bill-items');
-    itemsContainer.innerHTML = '';
+    const trailerContainer = document.getElementById('pos-bill-items-trailer');
+    const partsContainer = document.getElementById('pos-bill-items-parts');
+    trailerContainer.innerHTML = '';
+    partsContainer.innerHTML = '';
     let total = 0;
     
     currentBill.forEach(item => {
@@ -602,8 +655,17 @@ function updateBillUI() {
                 <div class="item-total">${formatCurrency(amount)}</div>
             </div>
         `;
-        itemsContainer.appendChild(div);
+        
+        if (item.category === 'Trailer Parts') {
+            partsContainer.appendChild(div);
+        } else {
+            trailerContainer.appendChild(div);
+        }
     });
+
+    // Hide/Show category groups based on content
+    document.getElementById('group-trailer').style.display = trailerContainer.children.length > 0 ? 'block' : 'none';
+    document.getElementById('group-parts').style.display = partsContainer.children.length > 0 ? 'block' : 'none';
     
     document.getElementById('pos-total-amount').textContent = formatCurrency(total);
 }

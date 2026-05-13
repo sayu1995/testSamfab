@@ -216,6 +216,7 @@ app.get('/api/products', async (req, res) => {
             quantity: p.quantity,
             price: p.price,
             image: p.image,
+            category: p.category,
             owner_name: p.user_id ? p.user_id.business_name : 'Unknown'
         }));
         
@@ -226,7 +227,7 @@ app.get('/api/products', async (req, res) => {
 });
 
 app.post('/api/products', async (req, res) => {
-    const { name, quantity, price, image } = req.body;
+    const { name, quantity, price, image, category } = req.body;
     if (!name || quantity === undefined || price === undefined) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -237,21 +238,22 @@ app.post('/api/products', async (req, res) => {
             name,
             quantity,
             price,
-            image
+            image,
+            category
         });
-        res.status(201).json({ id: product._id.toString(), name, quantity, price, image });
+        res.status(201).json({ id: product._id.toString(), name, quantity, price, image, category });
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
 });
 
 app.put('/api/products/:id', async (req, res) => {
-    const { name, quantity, price, image } = req.body;
+    const { name, quantity, price, image, category } = req.body;
     try {
         const queryFilter = req.user.role === 'admin' ? { _id: req.params.id } : { _id: req.params.id, user_id: req.user._id };
         const product = await Product.findOneAndUpdate(
             queryFilter,
-            { name, quantity, price, image },
+            { name, quantity, price, image, category },
             { new: true }
         );
         if (!product) return res.status(404).json({ error: 'Product not found' });

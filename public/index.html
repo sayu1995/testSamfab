@@ -219,6 +219,14 @@
                                 <i class='bx bx-search'></i>
                                 <input type="text" id="pos-search-input" placeholder="Search products...">
                             </div>
+                            <div class="pos-categories" style="display:flex; gap:10px; margin-bottom:20px;">
+                                <button class="btn btn-outline btn-sm pos-category-btn active"
+                                    data-category="all">All</button>
+                                <button class="btn btn-outline btn-sm pos-category-btn"
+                                    data-category="Trailer">Trailer</button>
+                                <button class="btn btn-outline btn-sm pos-category-btn"
+                                    data-category="Trailer Parts">Trailer Parts</button>
+                            </div>
                             <!-- Products Grid -->
                             <div class="pos-products-grid" id="pos-products-grid">
                                 <!-- Populated via JS -->
@@ -230,8 +238,19 @@
                                 <h2>Current Bill</h2>
                                 <p id="pos-bill-no">Auto Generate</p>
                             </div>
-                            <div class="bill-items" id="pos-bill-items">
-                                <!-- Populated via JS -->
+                            <div class="bill-items-container" style="flex: 1; overflow-y: auto;">
+                                <div class="bill-category-group" id="group-trailer" style="margin-bottom: 20px;">
+                                    <h3
+                                        style="font-size: 14px; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 10px;">
+                                        Trailers</h3>
+                                    <div id="pos-bill-items-trailer"></div>
+                                </div>
+                                <div class="bill-category-group" id="group-parts">
+                                    <h3
+                                        style="font-size: 14px; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 10px;">
+                                        Trailer Parts</h3>
+                                    <div id="pos-bill-items-parts"></div>
+                                </div>
                             </div>
                             <div class="bill-summary">
                                 <div class="summary-row total">
@@ -259,6 +278,11 @@
                             </div>
                         </div>
                         <div style="display: flex; gap: 10px;">
+                            <select id="inventory-category-filter" class="form-control" style="width:160px;">
+                                <option value="all">All Categories</option>
+                                <option value="Trailer">Trailer</option>
+                                <option value="Trailer Parts">Trailer Parts</option>
+                            </select>
                             <button class="btn btn-outline" id="btn-export-inventory"><i class='bx bx-download'></i>
                                 Export CSV</button>
                             <button class="btn btn-primary" id="btn-add-product"><i class='bx bx-plus'></i> Add
@@ -271,6 +295,7 @@
                                 <thead>
                                     <tr>
                                         <th>Item Name</th>
+                                        <th>Category</th>
                                         <th>Quantity</th>
                                         <th>Price</th>
                                         <th>Actions</th>
@@ -396,6 +421,13 @@
                         <div class="form-group">
                             <label>Quantity</label>
                             <input type="number" id="product-qty" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="product-category" class="form-control" required>
+                                <option value="Trailer">Trailer</option>
+                                <option value="Trailer Parts">Trailer Parts</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label>Price</label>
