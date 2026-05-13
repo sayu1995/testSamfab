@@ -1,6 +1,6 @@
 /* Variables & Color Palette - Modern Premium Aesthetics */
 :root {
-    --primary: #4f46e5;
+    --primary: #09019c;
     --primary-hover: #4338ca;
     --secondary: #f3f4f6;
     --bg-body: #f8fafc;
@@ -799,7 +799,7 @@ body {
 .auth-title {
     font-size: 28px;
     font-weight: 800;
-    color: var(--primary);
+    color: #1e3a8a;
     margin: 15px 0;
     text-transform: uppercase;
     letter-spacing: 1px;
