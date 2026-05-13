@@ -220,6 +220,7 @@ function setupModals() {
     document.getElementById('btn-add-product').addEventListener('click', () => {
         document.getElementById('product-form').reset();
         document.getElementById('product-id').value = '';
+        document.getElementById('product-item-id').value = '';
         currentProductImageBase64 = null;
         document.getElementById('product-image-preview').innerHTML = '<span style="color:var(--text-muted);font-size:12px;">+ Add Image</span>';
         document.getElementById('product-modal-title').textContent = 'Add Product';
@@ -275,12 +276,14 @@ function setupModals() {
         const qty = document.getElementById('product-qty').value;
         const price = document.getElementById('product-price').value;
         const category = document.getElementById('product-category').value;
+        const item_id = document.getElementById('product-item-id').value;
         
         const payload = { 
             name, 
             quantity: parseInt(qty), 
             price: parseFloat(price),
             category,
+            item_id,
             image: currentProductImageBase64
         };
         const method = id ? 'PUT' : 'POST';
@@ -453,7 +456,7 @@ async function loadInventory() {
             }
             
             tr.innerHTML = `
-                <td style="font-family: monospace; font-weight: bold;">ITM-${p.id.slice(-6).toUpperCase()}</td>
+                <td style="font-family: monospace; font-weight: bold;">${p.item_id || 'N/A'}</td>
                 <td style="display:flex;align-items:center;gap:12px;">${imgHtml} ${nameDisplay}</td>
                 <td>${p.category || 'Trailer'}</td>
                 <td class="${p.quantity <= 10 ? 'text-danger' : ''}">${p.quantity}</td>
@@ -494,6 +497,7 @@ function editProduct(id) {
         document.getElementById('product-qty').value = p.quantity;
         document.getElementById('product-price').value = p.price;
         document.getElementById('product-category').value = p.category || 'Trailer';
+        document.getElementById('product-item-id').value = p.item_id || '';
         
         currentProductImageBase64 = p.image || null;
         if (p.image) {

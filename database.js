@@ -54,6 +54,7 @@ const UserSchema = new mongoose.Schema({
 
 const ProductSchema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    item_id: { type: String },
     name: { type: String, required: true },
     quantity: { type: Number, default: 0 },
     price: { type: Number, default: 0.0 },

@@ -212,11 +212,13 @@ app.get('/api/products', async (req, res) => {
         // Map _id to id for the frontend
         const mappedProducts = products.map(p => ({
             id: p._id.toString(),
+            item_id: p.item_id,
             name: p.name,
             quantity: p.quantity,
             price: p.price,
             image: p.image,
             category: p.category,
+            item_id: p.item_id,
             owner_name: p.user_id ? p.user_id.business_name : 'Unknown'
         }));
         
@@ -227,7 +229,7 @@ app.get('/api/products', async (req, res) => {
 });
 
 app.post('/api/products', async (req, res) => {
-    const { name, quantity, price, image, category } = req.body;
+    const { name, quantity, price, image, category, item_id } = req.body;
     if (!name || quantity === undefined || price === undefined) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -235,25 +237,26 @@ app.post('/api/products', async (req, res) => {
     try {
         const product = await Product.create({
             user_id: req.user._id,
+            item_id,
             name,
             quantity,
             price,
             image,
             category
         });
-        res.status(201).json({ id: product._id.toString(), name, quantity, price, image, category });
+        res.status(201).json({ id: product._id.toString(), item_id, name, quantity, price, image, category });
     } catch (err) {
         return res.status(500).json({ error: err.message });
     }
 });
 
 app.put('/api/products/:id', async (req, res) => {
-    const { name, quantity, price, image, category } = req.body;
+    const { name, quantity, price, image, category, item_id } = req.body;
     try {
         const queryFilter = req.user.role === 'admin' ? { _id: req.params.id } : { _id: req.params.id, user_id: req.user._id };
         const product = await Product.findOneAndUpdate(
             queryFilter,
-            { name, quantity, price, image, category },
+            { name, quantity, price, image, category, item_id },
             { new: true }
         );
         if (!product) return res.status(404).json({ error: 'Product not found' });
