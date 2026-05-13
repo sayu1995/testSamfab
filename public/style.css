@@ -796,6 +796,15 @@ body {
     margin-bottom: 24px;
 }
 
+.auth-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 15px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 .auth-header h2 {
     font-size: 22px;
     color: var(--primary);
