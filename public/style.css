@@ -40,7 +40,7 @@ body {
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
-    padding: 20px 0;
+    padding: 0;
     box-shadow: var(--shadow-sm);
     z-index: 10;
 }
@@ -48,29 +48,17 @@ body {
 .logo-container {
     display: flex;
     align-items: center;
-    padding: 10px 24px 30px;
-    gap: 12px;
-}
-
-.logo-container .icon {
-    font-size: 28px;
-    color: var(--primary);
-    background: #eef2ff;
-    padding: 8px;
-    border-radius: 12px;
-}
-
-.logo-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text-main);
-    letter-spacing: -0.5px;
+    padding: 0;
 }
 
 .logo-img {
-    width: 280px;
-    height: 280px;
+    width: 320px;
+    height: auto;
+    max-height: 200px;
     object-fit: contain;
+    border: none;
+    outline: none;
+    display: block;
 }
 
 .nav-list {
@@ -79,7 +67,7 @@ body {
 }
 
 .nav-list li {
-    margin: 4px 16px;
+    margin: 2px 16px;
 }
 
 .nav-link {
