@@ -547,9 +547,6 @@ async function loadPOS() {
         const res = await fetchAuth(`${API_BASE}/products`);
         products = await res.json();
         
-        // Exclude "Tools" from POS
-        products = products.filter(p => p.category !== 'Tools');
-        
         // Reset category filter UI
         document.querySelectorAll('.pos-category-btn').forEach(b => b.classList.remove('active'));
         document.querySelector('.pos-category-btn[data-category="all"]').classList.add('active');
@@ -569,7 +566,7 @@ function renderPOSProducts(productArray) {
         div.className = 'pos-product-card';
         const imgStyle = p.image ? `background-image:url('${p.image}');background-size:cover;background-position:center;` : `background:#e2e8f0;`;
         div.innerHTML = `
-            <div style="width:100%;height:35px;border-radius:6px;margin-bottom:6px;${imgStyle}"></div>
+            <div style="width:100%;height:55px;border-radius:6px;margin-bottom:6px;${imgStyle}"></div>
             <h4 style="margin-bottom:4px;">${p.name}</h4>
             <div class="price" style="font-size:13px;">${formatCurrency(p.price)}</div>
             <div style="font-size:10px;color:var(--text-muted);margin-top:2px;">Stock: ${p.quantity}</div>
@@ -647,10 +644,12 @@ function updateBillUI() {
     const trailerContainer = document.getElementById('pos-bill-items-trailer');
     const partsContainer = document.getElementById('pos-bill-items-parts');
     const sheetsContainer = document.getElementById('pos-bill-items-sheets');
+    const toolsContainer = document.getElementById('pos-bill-items-tools');
     
     trailerContainer.innerHTML = '';
     partsContainer.innerHTML = '';
     sheetsContainer.innerHTML = '';
+    toolsContainer.innerHTML = '';
     let total = 0;
     
     currentBill.forEach(item => {
@@ -678,6 +677,8 @@ function updateBillUI() {
             partsContainer.appendChild(div);
         } else if (item.category === 'Sheets') {
             sheetsContainer.appendChild(div);
+        } else if (item.category === 'Tools') {
+            toolsContainer.appendChild(div);
         } else {
             trailerContainer.appendChild(div);
         }
@@ -687,6 +688,7 @@ function updateBillUI() {
     document.getElementById('group-trailer').style.display = trailerContainer.children.length > 0 ? 'block' : 'none';
     document.getElementById('group-parts').style.display = partsContainer.children.length > 0 ? 'block' : 'none';
     document.getElementById('group-sheets').style.display = sheetsContainer.children.length > 0 ? 'block' : 'none';
+    document.getElementById('group-tools').style.display = toolsContainer.children.length > 0 ? 'block' : 'none';
     
     document.getElementById('pos-total-amount').textContent = formatCurrency(total);
 }
