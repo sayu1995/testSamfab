@@ -226,6 +226,10 @@
                                     data-category="Trailer">Trailer</button>
                                 <button class="btn btn-outline btn-sm pos-category-btn"
                                     data-category="Trailer Parts">Trailer Parts</button>
+                                <button class="btn btn-outline btn-sm pos-category-btn"
+                                    data-category="Sheets">Sheets</button>
+                                <button class="btn btn-outline btn-sm pos-category-btn"
+                                    data-category="Tools">Tools</button>
                             </div>
                             <!-- Products Grid -->
                             <div class="pos-products-grid" id="pos-products-grid">
@@ -250,6 +254,18 @@
                                         style="font-size: 14px; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 10px;">
                                         Trailer Parts</h3>
                                     <div id="pos-bill-items-parts"></div>
+                                </div>
+                                <div class="bill-category-group" id="group-sheets" style="margin-bottom: 20px;">
+                                    <h3
+                                        style="font-size: 14px; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 10px;">
+                                        Sheets</h3>
+                                    <div id="pos-bill-items-sheets"></div>
+                                </div>
+                                <div class="bill-category-group" id="group-tools">
+                                    <h3
+                                        style="font-size: 14px; color: var(--primary); text-transform: uppercase; border-bottom: 1px solid var(--border); padding-bottom: 5px; margin-bottom: 10px;">
+                                        Tools</h3>
+                                    <div id="pos-bill-items-tools"></div>
                                 </div>
                             </div>
                             <div class="bill-summary">
@@ -282,6 +298,8 @@
                                 <option value="all">All </option>
                                 <option value="Trailer">Trailer</option>
                                 <option value="Trailer Parts">Trailer Parts</option>
+                                <option value="Sheets">Sheets</option>
+                                <option value="Tools">Tools</option>
                             </select>
                             <button class="btn btn-outline" id="btn-export-inventory"><i class='bx bx-download'></i>
                                 Export CSV</button>
@@ -433,6 +451,8 @@
                             <select id="product-category" class="form-control" required>
                                 <option value="Trailer">Trailer</option>
                                 <option value="Trailer Parts">Trailer Parts</option>
+                                <option value="Sheets">Sheets</option>
+                                <option value="Tools">Tools</option>
                             </select>
                         </div>
                         <div class="form-group">

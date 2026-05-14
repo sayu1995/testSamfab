@@ -59,8 +59,8 @@ const ProductSchema = new mongoose.Schema({
     quantity: { type: Number, default: 0 },
     price: { type: Number, default: 0.0 },
     image: { type: String },
-    category: { type: String, enum: ['Trailer', 'Trailer Parts'], default: 'Trailer' }
-});
+    category: { type: String, enum: ['Trailer', 'Trailer Parts', 'Sheets', 'Tools'], default: 'Trailer' }
+}, { timestamps: true });
 
 const InvoiceItemSchema = new mongoose.Schema({
     product_name: { type: String, required: true },

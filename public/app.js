@@ -643,8 +643,13 @@ function updateBillQuantity(id, change) {
 function updateBillUI() {
     const trailerContainer = document.getElementById('pos-bill-items-trailer');
     const partsContainer = document.getElementById('pos-bill-items-parts');
+    const sheetsContainer = document.getElementById('pos-bill-items-sheets');
+    const toolsContainer = document.getElementById('pos-bill-items-tools');
+    
     trailerContainer.innerHTML = '';
     partsContainer.innerHTML = '';
+    sheetsContainer.innerHTML = '';
+    toolsContainer.innerHTML = '';
     let total = 0;
     
     currentBill.forEach(item => {
@@ -670,6 +675,10 @@ function updateBillUI() {
         
         if (item.category === 'Trailer Parts') {
             partsContainer.appendChild(div);
+        } else if (item.category === 'Sheets') {
+            sheetsContainer.appendChild(div);
+        } else if (item.category === 'Tools') {
+            toolsContainer.appendChild(div);
         } else {
             trailerContainer.appendChild(div);
         }
@@ -678,6 +687,8 @@ function updateBillUI() {
     // Hide/Show category groups based on content
     document.getElementById('group-trailer').style.display = trailerContainer.children.length > 0 ? 'block' : 'none';
     document.getElementById('group-parts').style.display = partsContainer.children.length > 0 ? 'block' : 'none';
+    document.getElementById('group-sheets').style.display = sheetsContainer.children.length > 0 ? 'block' : 'none';
+    document.getElementById('group-tools').style.display = toolsContainer.children.length > 0 ? 'block' : 'none';
     
     document.getElementById('pos-total-amount').textContent = formatCurrency(total);
 }
