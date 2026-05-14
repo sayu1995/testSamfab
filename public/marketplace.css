@@ -37,7 +37,7 @@ body {
 }
 
 .store-header {
-    background: linear-gradient(135deg, var(--primary) 0%, #020f89 100%);
+    background: linear-gradient(135deg, var(--primary) 0%, #020c6b 100%);
     color: white;
     padding: 60px 40px;
     box-shadow: var(--shadow-md);

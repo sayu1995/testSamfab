@@ -13,7 +13,7 @@ const connectDB = async () => {
 
     try {
         const uri = process.env.MONGO_URI || 'mongodb+srv://test:test%40123@cluster0.3t4qpai.mongodb.net/?appName=Cluster0';
-        
+
         // Log connection attempt (hiding password)
         const sanitizedUri = uri.replace(/:([^@]+)@/, ':****@');
         console.log(`Connecting to MongoDB: ${sanitizedUri}`);
@@ -22,7 +22,7 @@ const connectDB = async () => {
             serverSelectionTimeoutMS: 10000, // 10s timeout
             connectTimeoutMS: 10000
         });
-        
+
         cachedDb = db;
         console.log('Successfully connected to MongoDB');
         return db;
@@ -30,12 +30,12 @@ const connectDB = async () => {
         console.error('CRITICAL: MongoDB Connection Error!');
         console.error('Error Code:', err.code);
         console.error('Message:', err.message);
-        
+
         if (err.message.includes('ECONNREFUSED') || err.message.includes('querySrv')) {
             console.error('\nTIP: This error usually means your network is blocking MongoDB SRV records.');
             console.error('Try switching to a different network or use a non-SRV connection string in your .env file.\n');
         }
-        
+
         throw err;
     }
 };
@@ -59,8 +59,8 @@ const ProductSchema = new mongoose.Schema({
     quantity: { type: Number, default: 0 },
     price: { type: Number, default: 0.0 },
     image: { type: String },
-    category: { type: String, enum: ['Trailer', 'Trailer Parts', 'Sheets', 'Tools'], default: 'Trailer' }
-}, { timestamps: true });
+    category: { type: String, enum: ['Trailer', 'Trailer Parts'], default: 'Trailer' }
+});
 
 const InvoiceItemSchema = new mongoose.Schema({
     product_name: { type: String, required: true },
@@ -96,9 +96,10 @@ const initializeDatabase = async () => {
             });
             console.log('Admin user created.');
         } else {
-            await User.updateOne({ email: 'Admin' }, { 
+            await User.updateOne({ email: 'Admin' }, {
                 password: 'Samfab@2002',
-                role: 'admin' 
+                business_name: 'Admin Portal',
+                role: 'admin'
             });
             console.log('Admin credentials updated.');
         }
